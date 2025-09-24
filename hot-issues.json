@@ -9,7 +9,8 @@
     "Status": "MONITORING",
     "Root Cause": "Customers have valid subscription IDs and credit cards on file but have never activated the TM product.",
     "Latest update": "Aug 26, 2025 Created a Case Monitoring",
-    "Date reported": "September 12,2025"
+    "Date reported": "September 12,2025",
+    "Link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1484424116/CM+Auto+Renewal+Charge+for+Ghost+Customer+Not+Activated+Subscription"
   },
   {
     "Title": "[CM][ITIS] Complete Full Disk Access Prompt on Antivirus for Mac",
@@ -21,7 +22,8 @@
     "Status": "monitoring",
     "Root Cause": "(N/A) This behavior is expected following the upgrade to version 11.8.1400, which addresses security vulnerabilities.",
     "Latest update": "Sep 17, 2025 Created CM",
-    "Date reported": "17-Sep-25"
+    "Date reported": "17-Sep-25",
+    "Link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1491469651/CM+ITIS+Complete+Full+Disk+Access+Prompt+on+Antivirus+for+Mac"
   },
   {
     "Title": "[PHI] [TMMS 17.1] TMMS App Crash Issue",
@@ -33,7 +35,8 @@
     "Status": "MONITORING",
     "Root Cause": "couldn't find \"libmarssdk.so\"",
     "Latest update": "11-Sep-25",
-    "Date reported": "2-Sep-25"
+    "Date reported": "2-Sep-25",
+    "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1472922583/PHI+TMMS+17.1+TMMS+App+Crash+Issue"
   },
   {
     "Title": "[CM] [TM Toolbar] Unable to Install Trend Micro Toolbar on Firefox Browser",
@@ -45,7 +48,8 @@
     "Status": "monitoring",
     "Root Cause": "Firefox rejected the new versions of TM Toolbar uploaded by RD because some requirements were not met, and in the process, they also disabled the live(published) version while the product is still under review.",
     "Latest update": "Next product upload for checking on Aug 28, 2025",
-    "Date reported": "22-Aug-25"
+    "Date reported": "22-Aug-25",
+    "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1456833469/CM+TM+Toolbar+Unable+to+Install+Trend+Micro+Toolbar+on+Firefox+Browser"
   },
   {
     "Title": "[CM] [i/TMMS] Lost Device Protection EOS Notification",
@@ -57,7 +61,8 @@
     "Status": "MONITORING",
     "Root Cause": "Internal ONLY: We are retiring LDP as it has low usage and limited effectiveness. Maintaining LDP also requires significant resources, and technical limitations prevent it from providing reliable tracking. This allows us to focus on enhancing other features that provide greater value to our users.",
     "Latest update": "2-Aug-25",
-    "Date reported": "2-Aug-25"
+    "Date reported": "2-Aug-25",
+    "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1349157243/CM+i+TMMS+Lost+Device+Protection+EOS+Notification"
   },
   {
     "Title": "[CM][HNS] No Option to Renew on My Account or Home Network Security App",
@@ -69,7 +74,8 @@
     "Status": "under investigation",
     "Root Cause": "TBD",
     "Latest update": "Sep 16, 2025 Still waiting RDs confirmation on how to fix the renewal issue with HNS",
-    "Date reported": "1-Aug-25"
+    "Date reported": "1-Aug-25",
+    "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1342668871/CM+HNS+No+Option+to+Renew+on+My+Account+or+Home+Network+Security+App"
   },
   {
     "Title": "[CM] [HNS] Home Network Security Not Extended After Device Security Ultimate Renewal",
@@ -81,7 +87,8 @@
     "Status": "monitporing",
     "Root Cause": "Wrong configuration in the backend system, which caused the data not to sync properly.",
     "Latest update": "25-Aug-25",
-    "Date reported": "27-Jun-25"
+    "Date reported": "27-Jun-25",
+    "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1223604260/CM+HNS+Home+Network+Security+Not+Extended+After+Device+Security+Ultimate+Renewal"
   },
   {
     "Title": "[PHI] [MyAccount] Missing Serial Number in MyAccount",
@@ -93,6 +100,7 @@
     "Status": "waiting for RD",
     "Root Cause": "TBA",
     "Latest update": "Aug 7, 2025 RD mentioned that they need more time to investigate the case and would be continued on September | put Jira case to sleep",
-    "Date reported": "11-Jun-25"
+    "Date reported": "11-Jun-25",
+    "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1209928669/PHI+MyAccount+Missing+Serial+Number+in+MyAccount"
   }
 ]

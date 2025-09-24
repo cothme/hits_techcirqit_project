@@ -32,7 +32,7 @@ const HotIssuesTable = ({
           <h2 className="card-title text-3xl text-content mb-6">
             🔥 Current Hot Issues
             {!isLoading && (
-              <div className="badge badge-error badge-lg text-content">
+              <div className="badge badge-accent badge-lg text-content">
                 {hotIssues.length} active
               </div>
             )}
@@ -63,7 +63,7 @@ const HotIssuesTable = ({
             <div className="overflow-x-auto">
               <table className="table table-zebra table-lg">
                 <thead>
-                  <tr className="bg-primary text-secondary-content">
+                  <tr className="bg-base-300 text-secondary-content">
                     <th className="text-sm font-bold uppercase tracking-wide">
                       Issue ID
                     </th>

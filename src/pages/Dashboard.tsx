@@ -3,6 +3,7 @@ import { useGetHotIssues } from "../hooks/useGetHotIssues";
 import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
 import HotIssuesTable from "../components/HotIssuesTable";
+import HotIssueDetection from "../components/HotIssueDetection";
 
 const Dashboard = () => {
   const { searchCase, isLoading, aiResponse, hasSearched } = useSearchCase();
@@ -22,6 +23,8 @@ const Dashboard = () => {
           results={aiResponse}
           hasSearched={hasSearched}
         />
+
+        {/* <HotIssueDetection /> */}
 
         <HotIssuesTable
           hotIssues={hotIssues}

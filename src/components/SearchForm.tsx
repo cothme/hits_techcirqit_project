@@ -16,20 +16,19 @@ const SearchForm = ({ onSearch, isLoading }: SearchFormProps) => {
 
   return (
     <fieldset className="fieldset">
-      <legend className="fieldset-legend text-xl">Hot Issue ba to?</legend>
+      <legend className="fieldset-legend text-xl">Hot Issue ba 'to?</legend>
       <div className="flex">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="input focus:outline-none focus:ring-0"
-          placeholder="Enter Case ID e.g, TM-1234567"
-          onKeyPress={(e) => e.key === "Enter" && handleSubmit()}
+          placeholder="Enter keywords e.g, Installation, App Crash"
         />
         <button
           onClick={handleSubmit}
           disabled={isLoading}
-          className="btn btn-neutral join-item"
+          className="btn btn-error join-item text-content"
         >
           {isLoading ? "Searching..." : "Search"}
         </button>
