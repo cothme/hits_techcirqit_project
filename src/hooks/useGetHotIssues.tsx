@@ -30,14 +30,33 @@ export const useGetHotIssues = () => {
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_WEB_HOOK_LIST_HOT_ISSUE_PROD
+        import.meta.env.VITE_WEB_HOOK_LIST_HOT_ISSUE_PROD,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       if (!response.ok) {
         throw new Error("Failed to fetch hot issues");
       }
 
-      const data: any[] = await response.json();
+      const responseText = await response.text();
+
+      if (!responseText.trim()) {
+        throw new Error("Empty response from server");
+      }
+
+      let data: HotIssue[];
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("JSON parse error:", parseError);
+        console.error("Response text:", responseText);
+        throw new Error("Invalid JSON response from server");
+      }
 
       // Normalize keys for each issue and map into HotIssue
       const transformedData: HotIssue[] = data.map((issue) => {

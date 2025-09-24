@@ -8,10 +8,12 @@ export const useSearchCase = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [aiResponse, setAiResponse] = useState<any[]>([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const searchCase = async (input: SearchQuery) => {
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
+    setHasSearched(true);
 
     try {
       const response = await fetch(
@@ -42,5 +44,5 @@ export const useSearchCase = () => {
     }
   };
 
-  return { searchCase, isLoading, error, aiResponse };
+  return { searchCase, isLoading, error, aiResponse, hasSearched };
 };
