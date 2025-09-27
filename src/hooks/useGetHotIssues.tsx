@@ -61,7 +61,7 @@ export const useGetHotIssues = () => {
       // Normalize keys for each issue and map into HotIssue
       const transformedData: HotIssue[] = data.map((issue) => {
         const normalized = normalizeKeys(issue);
-        console.log("Normalized issue keys:", Object.keys(normalized)); // 👀 check keys
+        // console.log("Normalized issue keys:", Object.keys(normalized)); // 👀 check keys
 
         return {
           title: normalized.title || "",

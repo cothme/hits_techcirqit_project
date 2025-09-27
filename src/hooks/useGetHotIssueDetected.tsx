@@ -1,10 +1,6 @@
 import { useState } from "react";
 
-interface SearchQuery {
-  query: string;
-}
-
-export const useSearchCase = () => {
+export const useGetHotIssueDetected = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [aiResponse, setAiResponse] = useState<any[]>([]);
@@ -28,33 +24,15 @@ export const useSearchCase = () => {
       );
 
       const data = await response.json();
-      console.log(data);
+
       if (!response.ok) {
         setIsLoading(false);
         setError(data.error || "Something went wrong");
         return;
       }
-      console.log("Raw response:", data);
 
-      // Handle different response formats from n8n workflow
-      let processedData = [];
-
-      if (Array.isArray(data)) {
-        // If data is already an array, use it directly
-        processedData = data;
-      } else if (data && data.matches) {
-        // If data has matches property, use those matches
-        processedData = Array.isArray(data.matches) ? data.matches : [data];
-      } else if (data && Array.isArray(data[0]?.matches)) {
-        // If data[0].matches exists and is an array
-        processedData = data[0].matches;
-      } else if (data) {
-        // Otherwise wrap single object in array
-        processedData = [data];
-      }
-
-      console.log("Processed data:", processedData);
-      setAiResponse(processedData);
+      console.log("Case searched!", data[0].matches);
+      setAiResponse(data[0].matches);
       setIsLoading(false);
     } catch {
       setError("Network error or server unavailable.");
