@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { UniversalResponse } from "../interfaces/case";
 
 interface SearchQuery {
   query: string;
@@ -7,7 +8,7 @@ interface SearchQuery {
 export const useSearchCase = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [aiResponse, setAiResponse] = useState<any[]>([]);
+  const [aiResponse, setAiResponse] = useState<UniversalResponse[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
   const searchCase = async (input: SearchQuery) => {
@@ -28,35 +29,46 @@ export const useSearchCase = () => {
       );
 
       const data = await response.json();
-      console.log(data);
+      console.log("Raw n8n response:", data);
+
       if (!response.ok) {
         setIsLoading(false);
         setError(data.error || "Something went wrong");
         return;
       }
-      console.log("Raw response:", data);
 
-      // Handle different response formats from n8n workflow
-      let processedData = [];
+      // Handle the universal response format
+      let processedData: UniversalResponse[] = [];
 
       if (Array.isArray(data)) {
-        // If data is already an array, use it directly
-        processedData = data;
-      } else if (data && data.matches) {
-        // If data has matches property, use those matches
-        processedData = Array.isArray(data.matches) ? data.matches : [data];
-      } else if (data && Array.isArray(data[0]?.matches)) {
-        // If data[0].matches exists and is an array
-        processedData = data[0].matches;
+        // Data is already in the expected array format
+        processedData = data.map(item => ({
+          caseId: item.caseId || "",
+          caseTitle: item.caseTitle || input.query,
+          likelyRelatedHotIssue: item.likelyRelatedHotIssue || "NO",
+          reasoning: item.reasoning || "No reasoning provided",
+          confidenceScore: item.confidenceScore || 0,
+          matchCount: item.matchCount || 0,
+          cases: item.cases || []
+        }));
       } else if (data) {
-        // Otherwise wrap single object in array
-        processedData = [data];
+        // Single object response - wrap in array
+        processedData = [{
+          caseId: data.caseId || "",
+          caseTitle: data.caseTitle || input.query,
+          likelyRelatedHotIssue: data.likelyRelatedHotIssue || "NO",
+          reasoning: data.reasoning || "No reasoning provided",
+          confidenceScore: data.confidenceScore || 0,
+          matchCount: data.matchCount || 0,
+          cases: data.cases || []
+        }];
       }
 
-      console.log("Processed data:", processedData);
+      console.log("Processed universal response:", processedData);
       setAiResponse(processedData);
       setIsLoading(false);
-    } catch {
+    } catch (err) {
+      console.error("Search error:", err);
       setError("Network error or server unavailable.");
       setIsLoading(false);
     }

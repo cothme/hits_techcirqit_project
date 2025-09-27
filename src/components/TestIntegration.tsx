@@ -4,7 +4,7 @@ import { runAllTests, testHotIssuesEndpoint, testSearchCasesEndpoint } from '../
 const TestIntegration: React.FC = () => {
   const [testResults, setTestResults] = useState<any>(null);
   const [isRunning, setIsRunning] = useState(false);
-  const [testQuery, setTestQuery] = useState('installation problem');
+  const [testQuery, setTestQuery] = useState('Sales');
 
   const runTests = async () => {
     setIsRunning(true);
@@ -45,7 +45,7 @@ const TestIntegration: React.FC = () => {
   return (
     <div className="card bg-base-100 shadow-xl m-6">
       <div className="card-body">
-        <h2 className="card-title text-2xl">🧪 n8n Integration Testing</h2>
+        <h2 className="card-title text-xl">🧪 n8n Integration Testing</h2>
 
         <div className="space-y-4">
           {/* Test Controls */}
@@ -98,7 +98,7 @@ const TestIntegration: React.FC = () => {
           {/* Test Results */}
           {testResults && (
             <div className="space-y-4">
-              <h3 className="text-lg font-bold">Test Results:</h3>
+              <h3 className="text-base font-bold">Test Results:</h3>
 
               {testResults.hotIssues && (
                 <div className={`alert ${testResults.hotIssues.success ? 'alert-success' : 'alert-error'}`}>

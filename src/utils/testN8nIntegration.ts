@@ -13,11 +13,24 @@ export const testHotIssuesEndpoint = async () => {
   }
 };
 
-export const testSearchCasesEndpoint = async (testQuery: string = "installation problem") => {
+export const testSearchCasesEndpoint = async (testQuery: string = "Sales") => {
   try {
     console.log('📋 Testing Search Cases endpoint with query:', testQuery);
     const searchResults = await searchSimilarCases(testQuery);
     console.log('✅ Search Cases Response:', searchResults);
+
+    // Validate universal response format
+    if (Array.isArray(searchResults)) {
+      const response = searchResults[0];
+      if (response && typeof response.confidenceScore === 'number' &&
+          typeof response.matchCount === 'number' &&
+          typeof response.reasoning === 'string') {
+        console.log('✅ Response format is valid');
+      } else {
+        console.warn('⚠️ Response format may not match universal format');
+      }
+    }
+
     return { success: true, data: searchResults };
   } catch (error) {
     console.error('❌ Search Cases Error:', error);

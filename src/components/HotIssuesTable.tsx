@@ -29,15 +29,6 @@ const HotIssuesTable = ({
     <div className="flex-1 p-6">
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title text-3xl text-content mb-6">
-            🔥 Current Hot Issues
-            {!isLoading && (
-              <div className="badge badge-accent badge-lg text-content">
-                {hotIssues.length} active
-              </div>
-            )}
-          </h2>
-
           {error && (
             <div className="alert alert-error mb-6 shadow-lg">
               <svg
