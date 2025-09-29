@@ -9,4 +9,5 @@ export default interface HotIssue {
   rootCause: string;
   latestUpdate: string;
   dateReported: string;
+  Link?: string;
 }

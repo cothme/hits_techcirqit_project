@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HITS Universal Response Schema",
+  "description": "Universal JSON response format for all HITS AI agents and workflows",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "caseId": {
+        "type": "string",
+        "description": "The case ID if analyzing a specific case, empty string if general query"
+      },
+      "caseTitle": {
+        "type": "string",
+        "description": "The case title or the user's search query"
+      },
+      "likelyRelatedHotIssue": {
+        "type": "string",
+        "description": "Format: 'ISSUE-ID — Hot issue title' if found, or 'No related hot issue found' if none"
+      },
+      "reasoning": {
+        "type": "string",
+        "description": "Clear explanation of why the hot issue was or was not matched"
+      },
+      "confidenceScore": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Confidence level: 0.8-1.0 = high, 0.5-0.7 = medium, 0.0-0.4 = low"
+      },
+      "matchCount": {
+        "type": "number",
+        "description": "Number of similar cases found (0 if no similar cases)"
+      },
+      "hotIssueDetails": {
+        "type": "array",
+        "description": "Detailed information about the detected hot issue",
+        "items": {
+          "type": "object",
+          "properties": {
+            "issueId": {
+              "type": "string",
+              "description": "Hot issue ID (e.g., HI-001359)"
+            },
+            "title": {
+              "type": "string",
+              "description": "Full title of the hot issue"
+            },
+            "product": {
+              "type": "string",
+              "description": "Affected product name"
+            },
+            "status": {
+              "type": "string",
+              "description": "Current status (e.g., MONITORING, OPEN, CLOSED)"
+            },
+            "totalCaseCounts": {
+              "type": "string",
+              "description": "Number of cases reported for this issue"
+            },
+            "lastCaseReported": {
+              "type": "string",
+              "description": "Date of last case reported"
+            },
+            "rootCause": {
+              "type": "string",
+              "description": "Known root cause of the issue"
+            },
+            "latestUpdate": {
+              "type": "string",
+              "description": "Latest update on the issue"
+            },
+            "dateReported": {
+              "type": "string",
+              "description": "Date when issue was first reported"
+            },
+            "link": {
+              "type": "string",
+              "description": "URL link to the hot issue page/documentation"
+            }
+          },
+          "required": ["issueId", "title", "link"]
+        }
+      },
+      "cases": {
+        "type": "array",
+        "description": "Array of similar cases found",
+        "items": {
+          "type": "object",
+          "properties": {
+            "caseId": {
+              "type": "string",
+              "description": "Case ID"
+            },
+            "caseTitle": {
+              "type": "string",
+              "description": "Case title"
+            },
+            "activityOwner": {
+              "type": "string",
+              "description": "Person assigned to the case"
+            },
+            "product": {
+              "type": "string",
+              "description": "Product involved"
+            },
+            "problemDescription": {
+              "type": "string",
+              "description": "Description of the problem"
+            },
+            "problemCategory": {
+              "type": "string",
+              "description": "Category of the problem"
+            },
+            "rootCause": {
+              "type": "string",
+              "description": "Root cause of the issue"
+            },
+            "solutionThatWorked": {
+              "type": "string",
+              "description": "Solution that resolved the case"
+            }
+          },
+          "required": ["caseId", "caseTitle"]
+        }
+      }
+    },
+    "required": ["caseTitle", "likelyRelatedHotIssue", "reasoning", "confidenceScore", "matchCount", "hotIssueDetails", "cases"]
+  },
+  "examples": [
+    {
+      "caseId": "",
+      "caseTitle": "Ghost Customer",
+      "likelyRelatedHotIssue": "HI-001359 — [CM] Auto Renewal Charge for Ghost Customer 'Not Activated' Subscription",
+      "reasoning": "The query explicitly mentions 'Ghost Customer,' which exactly matches the hot issue title. This is a known issue affecting customers with valid subscriptions who never activated the product.",
+      "confidenceScore": 0.95,
+      "matchCount": 0,
+      "hotIssueDetails": [
+        {
+          "issueId": "HI-001359",
+          "title": "[CM] Auto Renewal Charge for Ghost Customer 'Not Activated' Subscription",
+          "product": "All Product",
+          "status": "MONITORING",
+          "totalCaseCounts": "31",
+          "lastCaseReported": "17-Sep-25",
+          "rootCause": "Customers have valid subscription IDs and credit cards on file but have never activated the TM product.",
+          "latestUpdate": "Aug 26, 2025 Created a Case Monitoring",
+          "dateReported": "September 12,2025",
+          "link": "https://trendmicro.atlassian.net/wiki/spaces/PTS/pages/1484424116/CM+Auto+Renewal+Charge+for+Ghost+Customer+Not+Activated+Subscription"
+        }
+      ],
+      "cases": []
+    },
+    {
+      "caseId": "",
+      "caseTitle": "Installation problem",
+      "likelyRelatedHotIssue": "No related hot issue found",
+      "reasoning": "The query is too generic. While there is an installation-related hot issue (HI-001356 for Firefox Toolbar), the query lacks specific context to confidently match it.",
+      "confidenceScore": 0.2,
+      "matchCount": 0,
+      "hotIssueDetails": [],
+      "cases": []
+    }
+  ]
+}

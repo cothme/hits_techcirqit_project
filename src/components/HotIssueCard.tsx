@@ -106,11 +106,32 @@ const HotIssueCard: React.FC<HotIssueCardProps> = ({ hotIssue, index }) => {
           </div>
         )}
 
-        {/* Action Buttons */}
-        <div className="card-actions justify-end mt-4">
-          <button className="btn btn-outline btn-sm">📋 View Details</button>
-          <button className="btn btn-primary btn-sm">🔍 Related Cases</button>
-        </div>
+        {/* Action Button */}
+        {hotIssue.Link && (
+          <div className="card-actions justify-end mt-6">
+            <a
+              href={hotIssue.Link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-sm gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              View Issue
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

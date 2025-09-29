@@ -28,43 +28,17 @@ export const useSearchCase = () => {
         }
       );
 
-      const data = await response.json();
-      console.log("Raw n8n response:", data);
-
       if (!response.ok) {
         setIsLoading(false);
-        setError(data.error || "Something went wrong");
+        setError("Failed to get response from server");
         return;
       }
 
-      // Handle the universal response format
-      let processedData: UniversalResponse[] = [];
+      const data = await response.json();
+      console.log("Raw n8n response:", data);
 
-      if (Array.isArray(data)) {
-        // Data is already in the expected array format
-        processedData = data.map(item => ({
-          caseId: item.caseId || "",
-          caseTitle: item.caseTitle || input.query,
-          likelyRelatedHotIssue: item.likelyRelatedHotIssue || "NO",
-          reasoning: item.reasoning || "No reasoning provided",
-          confidenceScore: item.confidenceScore || 0,
-          matchCount: item.matchCount || 0,
-          cases: item.cases || []
-        }));
-      } else if (data) {
-        // Single object response - wrap in array
-        processedData = [{
-          caseId: data.caseId || "",
-          caseTitle: data.caseTitle || input.query,
-          likelyRelatedHotIssue: data.likelyRelatedHotIssue || "NO",
-          reasoning: data.reasoning || "No reasoning provided",
-          confidenceScore: data.confidenceScore || 0,
-          matchCount: data.matchCount || 0,
-          cases: data.cases || []
-        }];
-      }
-
-      console.log("Processed universal response:", processedData);
+      // Ensure data is in array format
+      const processedData = Array.isArray(data) ? data : [data];
       setAiResponse(processedData);
       setIsLoading(false);
     } catch (err) {

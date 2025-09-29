@@ -1,6 +1,7 @@
 import React from "react";
 import EmptyState from "./EmptyState";
 import CaseCard from "./CaseCard";
+import { useGetHotIssues } from "../hooks/useGetHotIssues";
 import type { UniversalResponse } from "../interfaces/case";
 
 interface UniversalSearchResultsProps {
@@ -14,6 +15,43 @@ const UniversalSearchResults: React.FC<UniversalSearchResultsProps> = ({
   isLoading,
   hasSearched,
 }) => {
+  const { hotIssues } = useGetHotIssues();
+
+  const getHotIssueLink = (response: UniversalResponse): string | null => {
+    // First, check if hotIssueDetails is available in the response
+    if (response.hotIssueDetails && response.hotIssueDetails.length > 0) {
+      const hotIssueDetail = response.hotIssueDetails[0];
+      return hotIssueDetail.link || null;
+    }
+
+    // Fallback to parsing from likelyRelatedHotIssue text
+    const relatedHotIssue = response.likelyRelatedHotIssue;
+    if (
+      !relatedHotIssue ||
+      relatedHotIssue.toLowerCase() === "no" ||
+      relatedHotIssue.toLowerCase() === "no related hot issue found"
+    ) {
+      return null;
+    }
+
+    // Parse the issue ID from the format "ISSUE-ID — Hot issue title"
+    const issueIdMatch = relatedHotIssue.match(/^([A-Z]+-\d+|[A-Z]+\d+)/i);
+
+    if (issueIdMatch) {
+      const issueId = issueIdMatch[1];
+
+      // Find the hot issue by ID
+      const matchedIssue = hotIssues.find(
+        (issue) => issue.issueId?.toLowerCase() === issueId.toLowerCase()
+      );
+
+      if (matchedIssue?.Link) {
+        return matchedIssue.Link;
+      }
+    }
+
+    return null;
+  };
   if (!hasSearched) return null;
 
   if (isLoading) {
@@ -106,16 +144,43 @@ const UniversalSearchResults: React.FC<UniversalSearchResultsProps> = ({
               <div className="text-sm font-medium text-base-content/60 mb-1">
                 Related Hot Issue
               </div>
-              <div
-                className={`text-sm p-2 rounded ${
-                  hasHotIssueRelation
-                    ? "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200"
-                    : "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200"
-                }`}
-              >
-                {hasHotIssueRelation
-                  ? response.likelyRelatedHotIssue
-                  : "No related hot issue found"}
+              <div className="flex items-center justify-between gap-3">
+                <div
+                  className={`text-sm p-2 rounded flex-1 ${
+                    hasHotIssueRelation
+                      ? "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200"
+                      : "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200"
+                  }`}
+                >
+                  {hasHotIssueRelation
+                    ? response.likelyRelatedHotIssue
+                    : "No related hot issue found"}
+                </div>
+                {hasHotIssueRelation &&
+                  response.likelyRelatedHotIssue.toLowerCase() !== "no" &&
+                  getHotIssueLink(response) && (
+                    <a
+                      href={getHotIssueLink(response)!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm btn-primary gap-2 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                      View Issue
+                    </a>
+                  )}
               </div>
             </div>
 

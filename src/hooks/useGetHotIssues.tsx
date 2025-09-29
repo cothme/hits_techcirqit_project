@@ -74,6 +74,7 @@ export const useGetHotIssues = () => {
           rootCause: normalized.rootCause || "",
           latestUpdate: normalized.latestUpdate || "",
           dateReported: normalized.dateReported || "",
+          Link: normalized.link || normalized.Link || "",
         };
       });
 
